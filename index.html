@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#6200ea">
 <style>
-  body { margin:0; font-family: Arial, sans-serif; background:#f4f4f9; padding-top:70px; padding-bottom:60px; }
+  body { margin:0; font-family: Arial, sans-serif; background:#f4f4f9; padding-top:110px; padding-bottom:60px; }
   header { background:#6200ea; color:white; padding:1rem; text-align:center; font-size:1.3rem; position:fixed; top:0; left:0; width:100%; z-index:1000; }
   #clock { font-size:1rem; margin-top:5px; }
   .menu-toggle { position:absolute; left:15px; top:15px; font-size:1.5rem; cursor:pointer; z-index:1500; }
@@ -34,6 +34,29 @@
   .trailer button:hover { background:#e64a19; transform: scale(1.1); animation: pulse 1s infinite; }
   @keyframes pulse { 0% { transform: scale(1.0); } 50% { transform: scale(1.1); } 100% { transform: scale(1.0); } }
   footer { background:#3700b3; color:white; text-align:center; padding:1rem; position:fixed; bottom:0; width:100%; z-index:1000; }
+
+  /* Ligne de boutons dans l'en-tête */
+  .header-buttons {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 5px 0;
+    margin-top: 5px;
+  }
+  .header-buttons button {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    border: none;
+    background: #ff9800;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .header-buttons button:hover {
+    background: #e68900;
+    transform: scale(1.1);
+  }
 </style>
 </head>
 <body>
@@ -42,6 +65,7 @@
   <div class="menu-toggle">☰</div>
   🚀 Lesfacilitateurs Middleman ✨
   <div id="clock"></div>
+  <div class="header-buttons" id="headerButtons"></div>
 </header>
 
 <nav class="menu" id="menu">
@@ -135,7 +159,23 @@
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() { navigator.serviceWorker.register('./sw.js').then(reg => { console.log('Service Worker registered:', reg.scope); }).catch(err => console.log('SW registration failed:', err)); });
   }
+
+  // Ligne infinie de boutons dans l'en-tête
+  const headerLinks = [
+    { text: "Lien 1", url: "https://example.com/1" },
+    { text: "Lien 2", url: "https://example.com/2" },
+    { text: "Lien 3", url: "https://example.com/3" },
+    { text: "Lien 4", url: "https://example.com/4" },
+    { text: "Lien 5", url: "https://example.com/5" }
+  ];
+  const headerButtonsContainer = document.getElementById("headerButtons");
+  headerLinks.forEach(link => {
+    const btn = document.createElement("button");
+    btn.innerText = link.text;
+    btn.addEventListener("click", () => window.open(link.url, "_blank"));
+    headerButtonsContainer.appendChild(btn);
+  });
 </script>
 
 </body>
-  </html>
+</html>
