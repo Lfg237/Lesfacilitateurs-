@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesfacilitateurs Middleman</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6200ea">
+<style>
+  body { margin:0; font-family: Arial, sans-serif; background:#f4f4f9; padding-top:70px; padding-bottom:60px; }
+  header { background:#6200ea; color:white; padding:1rem; text-align:center; font-size:1.3rem; position:fixed; top:0; left:0; width:100%; z-index:1000; }
+  #clock { font-size:1rem; margin-top:5px; }
+  .menu-toggle { position:absolute; left:15px; top:15px; font-size:1.5rem; cursor:pointer; z-index:1500; }
+  .menu { display:none; position:fixed; top:0; left:0; height:100%; width:250px; background:#3700b3; padding:1rem; z-index:2000; overflow-y:auto; transition:0.3s; }
+  .menu a { display:block; color:white; padding:10px; text-decoration:none; }
+  .menu a:hover { background:#6200ea; }
+  .menu.show { display:block; }
+  .menu-close { text-align:right; font-size:1.5rem; cursor:pointer; color:white; margin-bottom:10px; }
+  .slideshow { display:flex; overflow:hidden; width:100%; height:200px; margin-top:10px; }
+  .slides { display:flex; transition: transform 0.1s linear; }
+  .slides img { width:100%; height:200px; object-fit:cover; }
+  .gallery-wrapper { position:relative; margin:10px 0; }
+  .video-gallery { display:flex; overflow-x:auto; gap:10px; padding:10px; scroll-behavior:smooth; }
+  .video-gallery iframe, .video-gallery img { flex-shrink:0; border-radius:8px; height:200px; width:300px; cursor:pointer; object-fit:cover; }
+  .gallery-btn { position:absolute; top:50%; transform:translateY(-50%); z-index:100; background:#6200ea; color:white; border:none; padding:10px; border-radius:50%; cursor:pointer; font-size:1.2rem; }
+  #prevBtn { left:0; } #nextBtn { right:0; }
+  .trailers { overflow-y: auto; height:150px; margin:15px; background:#fff; border-radius:10px; padding:5px; }
+  .trailers-inner { display:flex; flex-direction:column; }
+  .trailer { display:flex; align-items:center; padding:10px; border-bottom:1px solid #ddd; }
+  .trailer-text { flex:1; overflow:hidden; white-space:nowrap; }
+  .trailer-text span { display:inline-block; padding-left:100%; animation: marquee 8s linear infinite; }
+  @keyframes marquee { 0% { transform:translateX(0); } 100% { transform:translateX(-100%); } }
+  .trailer button { margin-left:10px; padding:8px 15px; border:none; background:#ff5722; color:white; border-radius:5px; cursor:pointer; flex-shrink:0; transition: transform 0.2s, background 0.2s; }
+  .trailer button:hover { background:#e64a19; transform: scale(1.1); animation: pulse 1s infinite; }
+  @keyframes pulse { 0% { transform: scale(1.0); } 50% { transform: scale(1.1); } 100% { transform: scale(1.0); } }
+  footer { background:#3700b3; color:white; text-align:center; padding:1rem; position:fixed; bottom:0; width:100%; z-index:1000; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="menu-toggle">☰</div>
+  🚀 Lesfacilitateurs Middleman ✨
+  <div id="clock"></div>
+</header>
+
+<nav class="menu" id="menu">
+  <div class="menu-close" id="menuClose">×</div>
+  <a href="#">Accueil</a>
+  <a href="#">À propos</a>
+  <a href="#">Contact</a>
+</nav>
+
+<!-- Slideshow -->
+<div class="slideshow" id="slideshow"></div>
+
+<!-- Galerie -->
+<div class="gallery-wrapper">
+  <button id="prevBtn" class="gallery-btn">◀</button>
+  <div class="video-gallery" id="videoGallery">
+    <iframe src="https://www.youtube.com/embed/6OX7skYfPNE" allowfullscreen></iframe>
+    <iframe src="https://www.tiktok.com/embed/v2/7123456789012345678" allowfullscreen></iframe>
+    <img src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250824_072247867.jpg" alt="Image1">
+    <img src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/IMG_20250227_152938.jpg" alt="Image2">
+    <img src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250824_073145807.jpg" alt="Image3">
+    <img src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250919_153621163.jpg" alt="Image4">
+    <img src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250923_102946400.jpg" alt="Image5">
+    <img src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/file_00000000def061f99f722813d5358de9.png" alt="Image6">
+  </div>
+  <button id="nextBtn" class="gallery-btn">▶</button>
+</div>
+
+<section class="trailers">
+  <div class="trailers-inner">
+    <div class="trailer">
+      <div class="trailer-text"><span>🎬 Bande annonce 1 : Super film en exclusivité</span></div>
+      <button>Voir</button>
+    </div>
+    <div class="trailer">
+      <div class="trailer-text"><span>🎬 Bande annonce 2 : Nouveau produit disponible</span></div>
+      <button>50€</button>
+    </div>
+    <div class="trailer">
+      <div class="trailer-text"><span>🎬 Bande annonce 3 : Événement spécial à venir</span></div>
+      <button>Infos</button>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 Lesfacilitateurs - Tous droits réservés</footer>
+
+<script>
+  // Horloge
+  function updateClock(){ document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }
+  setInterval(updateClock,1000); updateClock();
+
+  // Menu hamburger
+  const toggle = document.querySelector(".menu-toggle");
+  const menu = document.getElementById("menu");
+  const menuClose = document.getElementById("menuClose");
+  toggle.addEventListener("click", () => menu.classList.add("show"));
+  menuClose.addEventListener("click", () => menu.classList.remove("show"));
+
+  // Galerie auto-scroll
+  const gallery = document.getElementById("videoGallery");
+  let autoScrolling = true;
+  let scrollSpeed = 0.5;
+  function autoScrollGallery() {
+    if(autoScrolling){ gallery.scrollLeft += scrollSpeed; if(gallery.scrollLeft >= gallery.scrollWidth - gallery.clientWidth) gallery.scrollLeft = 0; }
+    requestAnimationFrame(autoScrollGallery);
+  }
+  requestAnimationFrame(autoScrollGallery);
+  document.getElementById("prevBtn").addEventListener("click", () => { autoScrolling = false; gallery.scrollLeft -= 300; });
+  document.getElementById("nextBtn").addEventListener("click", () => { autoScrolling = false; gallery.scrollLeft += 300; });
+
+  // Slideshow
+  const images = [
+    "https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250824_072247867.jpg",
+    "https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/IMG_20250227_152938.jpg",
+    "https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250824_073145807.jpg",
+    "https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250919_153621163.jpg",
+    "https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250923_102946400.jpg",
+    "https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/file_00000000def061f99f722813d5358de9.png"
+  ];
+  const slideshow = document.getElementById("slideshow");
+  const slidesContainer = document.createElement("div");
+  slidesContainer.classList.add("slides");
+  slideshow.appendChild(slidesContainer);
+  images.forEach(url => { const img = document.createElement("img"); img.src = url; slidesContainer.appendChild(img); });
+  let scrollPosition = 0;
+  function animateSlides() { scrollPosition += 1; if(scrollPosition >= slidesContainer.scrollWidth) scrollPosition = 0; slidesContainer.style.transform = `translateX(-${scrollPosition}px)`; requestAnimationFrame(animateSlides); }
+  requestAnimationFrame(animateSlides);
+
+  // Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() { navigator.serviceWorker.register('./sw.js').then(reg => { console.log('Service Worker registered:', reg.scope); }).catch(err => console.log('SW registration failed:', err)); });
+  }
+</script>
+
+</body>
+  </html>
