@@ -71,10 +71,26 @@ header {
   transition:transform 0.8s ease;
 }
 
-.slides img {
+.slideshow{
   width:100%;
-  height:200px;
-  object-fit:cover;
+  max-width:900px;
+  height:180px;
+  margin:auto;
+  overflow:hidden;
+  position:relative;
+  border-radius:10px;
+}
+
+.slides img{
+  min-width:100%;
+  height:180px;
+  object-fit:contain; /* affiche l'image entière */
+  background:#000;
+}
+
+.slides{
+  display:flex;
+  height:100%;
 }
 
 /* GALLERY */
@@ -83,12 +99,15 @@ header {
   margin:10px 0;
 }
 
-.video-gallery {
+.video-gallery{
   display:flex;
   overflow-x:auto;
+  overflow-y:hidden;
   gap:10px;
   padding:10px;
   scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  cursor:grab;
 }
 
 .video-gallery iframe,
@@ -193,6 +212,50 @@ footer{
   bottom:0;
   width:100%;
 }
+.trailers-scroll{
+  display:flex;
+  gap:15px;
+  overflow:hidden; /* important */
+  padding:10px;
+  background:#fff;
+  border-radius:10px;
+  flex-wrap:nowrap;
+}
+/* ===== BANDE ANNONCE TV ===== */
+
+/* ===== BANDE ANNONCE TV ===== */
+
+.news-ticker{
+    width:100%;
+    overflow:hidden;
+    background:#000;
+    border-top:3px solid gold;
+    border-bottom:3px solid gold;
+    padding:12px 0;
+}
+
+.news-track{
+    display:flex;
+    width:max-content;
+    animation:ticker 20s linear infinite;
+}
+.trail-item{
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    white-space:nowrap;
+    margin-right:60px;
+    flex-shrink:0;
+}
+
+@keyframes ticker{
+    0%{
+        transform:translateX(100%);
+    }
+    100%{
+        transform:translateX(-100%);
+    }
+}
 </style>
 </head>
 
@@ -253,7 +316,7 @@ src="https://raw.githubusercontent.com/Lfg237/image-lovestring/main/file_0000000
     <img src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/file_00000000def061f99f722813d5358de9.png">
 
 <img
-src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20260515_231032533.jpg>">
+src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20260515_231032533.jpg">
     <img src="https://raw.githubusercontent.com/Lfg237/m-dias/main/affiche_compressee.jpg">
 <img
 src="https://raw.githubusercontent.com/Lfg237/image-lovestring/main/file_000000008adc720ab18fa00bc3ce272b.png">
@@ -265,25 +328,37 @@ src="https://raw.githubusercontent.com/Lfg237/image-lovestring/main/file_0000000
 </div>
 
 <!-- BANDE ANNONCE DÉROULANTE -->
-<section class="trailers-scroll" id="trailersScroll">
+<section class="news-ticker">
 
-  <div class="trail-item">
-    <span>🎬 Bande annonce 1 : +237670035609</span>
-    <button class="reject">REJETER</button>
-  </div>
+    <div class="news-track">
 
-  <div class="trail-item">
-    <span>🎬 Bande annonce 2 : infoline 670035609</span>
-    <button class="reject">REJETER</button>
-  </div>
+        <div class="trail-item">
+            🎬 ETS LESFACILITATEURS GROUPE • WhatsApp +237670035609
+        </div>
 
-  <div class="trail-item">
-    <span>🎬 Bande annonce 3 : +237670035609</span>
-    <button class="reject">REJETER</button>
-  </div>
+        <div class="trail-item">
+            🚀 Création de sites web professionnels
+        </div>
+
+        <div class="trail-item">
+            📱 Développement APK Android
+        </div>
+
+        <div class="trail-item">
+            🎨 Retouche photo et portraits
+        </div>
+
+        <div class="trail-item">
+            📺 Business TV disponible 24h/24
+        </div>
+
+        <div class="trail-item">
+            🌍 Services numériques au Cameroun et à l'international
+        </div>
+
+    </div>
 
 </section>
-
 <footer>© 2025 Lesfacilitateurs - Tous droits réservés</footer>
 
 <script>
@@ -380,19 +455,11 @@ headerLinks.forEach(l=>{
   b.onclick=()=>window.open(l.url);
   container.appendChild(b);
 });
-const scrollBox = document.getElementById("trailersScroll");
+const newsTrack = document.querySelector(".news-track");
 
-let pos = 0;
-
-setInterval(()=>{
-  pos += 2;
-  scrollBox.scrollLeft = pos;
-
-  if(pos >= scrollBox.scrollWidth - scrollBox.clientWidth){
-    pos = 0;
-  }
-},30);
-
+if(newsTrack){
+   newsTrack.innerHTML += newsTrack.innerHTML;
+}
 </script>
 
 </body>
