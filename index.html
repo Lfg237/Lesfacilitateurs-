@@ -248,12 +248,18 @@ footer{
     flex-shrink:0;
 }
 
+.news-track{
+    display:flex;
+    width:max-content;
+    animation:ticker 12s linear infinite;
+}
+
 @keyframes ticker{
     0%{
-        transform:translateX(100%);
+        transform:translateX(0);
     }
     100%{
-        transform:translateX(-100%);
+        transform:translateX(-50%);
     }
 }
 </style>
