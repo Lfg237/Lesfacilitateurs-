@@ -262,6 +262,27 @@ footer{
         transform:translateX(-50%);
     }
 }
+.slideshow{
+   width:100%;
+   max-width:900px;
+   height:180px;
+   margin:10px auto;
+   overflow:hidden;
+   border-radius:10px;
+   background:#000;
+}
+
+.slides{
+   display:flex;
+   height:100%;
+   transition:transform 0.8s ease;
+}
+
+.slides img{
+   min-width:100%;
+   height:180px;
+   object-fit:contain;
+}
 </style>
 </head>
 
@@ -281,8 +302,11 @@ footer{
   <a href="#">Contact</a>
 </nav>
 
-<!-- SLIDESHOW -->
+<!-- SLIDESHOW 1 -->
 <div class="slideshow" id="slideshow"></div>
+
+<!-- SLIDESHOW 2 -->
+<div class="slideshow" id="slideshow2"></div>
 
 <!-- GALLERY -->
 <div class="gallery-wrapper">
@@ -381,8 +405,17 @@ document.querySelector(".menu-toggle").onclick = () =>
 document.getElementById("menuClose").onclick = () =>
   document.getElementById("menu").classList.remove("show");
 
-/* SLIDESHOW */
-const images = [
+/* ===== SLIDESHOW 1 ===== */
+
+const images1 = [
+"https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260318_085719267.jpg",
+"https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260319_152611056.jpg",
+"https://raw.githubusercontent.com/Lfg237/m-dias/main/file_00000000da147246a31c69c25552265f.png",
+"https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250824_072247867.jpg",
+"https://raw.githubusercontent.com/Lfg237/image-lovestring/main/1780134713490.jpg",
+"https://raw.githubusercontent.com/Lfg237/image-lovestring/main/file_00000000a83071f4bb084e6b3556f966.png",
+"https://raw.githubusercontent.com/Lfg237/image-lovestring/main/file_00000000dc407243a9f8ba38032b3d60.png",
+"https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png",
 "https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260318_085719267.jpg",
 "https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260319_152611056.jpg",
 "https://raw.githubusercontent.com/Lfg237/m-dias/main/file_00000000da147246a31c69c25552265f.png",
@@ -403,29 +436,51 @@ const images = [
 "https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/file_000000009a3872469d746a3579869682.png"
 ];
 
-const slideshow = document.getElementById("slideshow");
-const track = document.createElement("div");
-track.className="slides";
-slideshow.appendChild(track);
+const slideshow1 = document.getElementById("slideshow");
+const track1 = document.createElement("div");
+track1.className = "slides";
+slideshow1.appendChild(track1);
 
-images.forEach(src=>{
-  const img=document.createElement("img");
-  img.src=src;
-  track.appendChild(img);
+images1.forEach(src=>{
+   const img=document.createElement("img");
+   img.src=src;
+   track1.appendChild(img);
 });
 
-let i=0;
+let slide1 = 0;
+
 setInterval(()=>{
-  i++;
-  if(i>=images.length) i=0;
-  track.style.transform=`translateX(-${i*100}%)`;
+   slide1++;
+   if(slide1 >= images1.length) slide1 = 0;
+   track1.style.transform=`translateX(-${slide1*100}%)`;
 },3000);
 
-/* GALERIE */
-const gallery=document.getElementById("videoGallery");
-document.getElementById("prevBtn").onclick=()=>gallery.scrollLeft-=300;
-document.getElementById("nextBtn").onclick=()=>gallery.scrollLeft+=300;
 
+/* ===== SLIDESHOW 2 ===== */
+
+const images2 = [
+
+"https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png"
+];
+
+const slideshow2 = document.getElementById("slideshow2");
+const track2 = document.createElement("div");
+track2.className = "slides";
+slideshow2.appendChild(track2);
+
+images2.forEach(src=>{
+   const img=document.createElement("img");
+   img.src=src;
+   track2.appendChild(img);
+});
+
+let slide2 = 0;
+
+setInterval(()=>{
+   slide2++;
+   if(slide2 >= images2.length) slide2 = 0;
+   track2.style.transform=`translateX(-${slide2*100}%)`;
+},2500);
 /* REJET ANNONCE */
 document.querySelectorAll(".reject").forEach(btn=>{
   btn.onclick=function(){
