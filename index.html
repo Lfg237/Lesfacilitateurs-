@@ -283,6 +283,36 @@ footer{
    height:180px;
    object-fit:contain;
 }
+.video-gallery video{
+   flex:0 0 auto;
+   width:300px;
+   height:200px;
+   border-radius:8px;
+   background:#000;
+   object-fit:cover;
+}
+.video-gallery{
+   display:flex;
+   overflow-x:auto;
+   overflow-y:hidden;
+   gap:10px;
+   padding:10px;
+   scroll-behavior:smooth;
+   white-space:nowrap;
+}
+.gallery-btn{
+   position:absolute;
+   top:50%;
+   transform:translateY(-50%);
+   z-index:999;
+   background:#6200ea;
+   color:white;
+   border:none;
+   width:45px;
+   height:45px;
+   border-radius:50%;
+   cursor:pointer;
+}
 </style>
 </head>
 
@@ -317,8 +347,13 @@ footer{
     <iframe src="https://www.youtube.com/embed/6OX7skYfPNE"></iframe>
     <iframe src="https://archive.org/embed/in-shot-20250618-050312535"></iframe>
 
-<iframe
-    src="https://raw.githubusercontent.com/Lfg237/image-chantier-/main/VID-20260526-WA0016.mp4"></iframe>
+<video controls preload="metadata" width="300" height="200">
+   <source src="https://raw.githubusercontent.com/Lfg237/image-chantier-/main/VID-20260526-WA0016.mp4" type="video/mp4">
+   Votre navigateur ne supporte pas la vidéo.
+</video>
+
+
+
 <img
 src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/file_000000009a3872469d746a3579869682.png">
     <img src="https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/InShot_20250824_072247867.jpg">
@@ -527,6 +562,23 @@ const newsTrack = document.querySelector(".news-track");
 if(newsTrack){
    newsTrack.innerHTML += newsTrack.innerHTML;
 }
+const gallery = document.getElementById("videoGallery");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+prevBtn.addEventListener("click", () => {
+    gallery.scrollBy({
+        left: -350,
+        behavior: "smooth"
+    });
+});
+
+nextBtn.addEventListener("click", () => {
+    gallery.scrollBy({
+        left: 350,
+        behavior: "smooth"
+    });
+});
 </script>
 
 </body>
