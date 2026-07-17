@@ -7,26 +7,57 @@
 <meta name="theme-color" content="#6200ea">
 
 <style>
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#f4f4f9;
-  padding-top:160px;
-  padding-bottom:60px;
-  overflow-x:hidden;
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f4f9;
+    padding-top:210px; /* augmente l'espace */
+    padding-bottom:60px;
+    overflow-x:hidden;
 }
 
-header {
-  background:#6200ea;
-  color:white;
-  padding:1rem;
-  text-align:center;
-  font-size:1.3rem;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  z-index:1000;
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:#6200ea;
+    color:#fff;
+    z-index:1000;
+    padding:15px 10px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.menu-toggle{
+    position:absolute;
+    left:15px;
+    top:15px;
+}
+
+#clock{
+    margin-top:5px;
+}
+
+.header-buttons{
+    width:100%;
+    display:flex;
+    overflow-x:auto;
+    gap:10px;
+    padding:10px;
+    box-sizing:border-box;
+    white-space:nowrap;
+}
+
+.header-buttons button{
+    flex:0 0 auto;
+    background:#ff9800;
+    color:#fff;
+    border:none;
+    padding:8px 15px;
+    border-radius:8px;
+    cursor:pointer;
 }
 
 #clock { font-size:1rem; margin-top:5px; }
@@ -263,42 +294,50 @@ footer{
     }
 }
 .slideshow{
-   width:100%;
-   max-width:900px;
-   height:180px;
-   margin:10px auto;
-   overflow:hidden;
-   border-radius:10px;
-   background:#000;
+    width:100%;
+    max-width:900px;
+    height:240px;
+    margin:10px auto;
+    overflow:hidden;
+    background:#000;
+    border-radius:12px;
 }
 
 .slides{
-   display:flex;
-   height:100%;
-   transition:transform 0.8s ease;
+    display:flex;
+    width:100%;
+    height:100%;
+    transition:transform .8s ease;
 }
 
-.slides img{
-   min-width:100%;
-   height:180px;
-   object-fit:contain;
+.slides img,
+.slides video{
+    flex:0 0 100%;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+    background:#000;
 }
-.video-gallery video{
-   flex:0 0 auto;
-   width:300px;
-   height:200px;
-   border-radius:8px;
-   background:#000;
-   object-fit:cover;
+.video-gallery img,
+.video-gallery video,
+.video-gallery iframe{
+    flex:0 0 auto;
+    width:300px;
+    height:220px;
+    border-radius:8px;
+    background:#000;
+    object-fit:contain;
+    object-position:center center;
 }
+
 .video-gallery{
-   display:flex;
-   overflow-x:auto;
-   overflow-y:hidden;
-   gap:10px;
-   padding:10px;
-   scroll-behavior:smooth;
-   white-space:nowrap;
+    display:flex;
+    overflow-x:auto;
+    overflow-y:hidden;
+    gap:10px;
+    padding:10px;
+    align-items:center;
 }
 .gallery-btn{
    position:absolute;
@@ -312,6 +351,87 @@ footer{
    height:45px;
    border-radius:50%;
    cursor:pointer;
+}
+
+
+/* ===== BOUTON PUBLICITÉS ===== */
+
+.pub-float{
+position:fixed;
+right:20px;
+bottom:80px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:#ff9800;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,.3);
+z-index:9999;
+}
+
+.pub-popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+z-index:10000;
+}
+
+.pub-content{
+background:#fff;
+width:95%;
+max-width:700px;
+height:85%;
+margin:30px auto;
+border-radius:15px;
+overflow:auto;
+padding:20px;
+}
+
+.pub-close{
+float:right;
+font-size:30px;
+cursor:pointer;
+font-weight:bold;
+color:red;
+}
+
+.pub-card{
+background:#f7f7f7;
+border-left:6px solid #6200ea;
+border-radius:10px;
+padding:15px;
+margin-bottom:20px;
+box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.pub-card h3{
+color:#6200ea;
+margin-bottom:10px;
+}
+
+.pub-card p{
+margin:6px 0;
+line-height:1.6;
+}
+
+.pub-btn{
+display:inline-block;
+margin-top:10px;
+padding:10px 18px;
+background:#25D366;
+color:#fff;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
 }
 </style>
 </head>
@@ -338,7 +458,7 @@ footer{
 <!-- SLIDESHOW 2 -->
 <div class="slideshow" id="slideshow2"></div>
 
-<<!-- GALLERY -->
+<!-- GALLERY -->
 <div class="gallery-wrapper">
 
   <button id="prevBtn" class="gallery-btn">◀</button>
@@ -492,6 +612,102 @@ Votre partenaire stratégique pour des projets rentables et durables.
 </section>
 <footer>© 2025 Lesfacilitateurs - Tous droits réservés</footer>
 
+
+
+<!-- BOUTON FLOTTANT -->
+<div class="pub-float" id="pubOpen">
+📢
+</div>
+
+<!-- POPUP -->
+<div class="pub-popup" id="pubPopup">
+
+<div class="pub-content">
+
+<span class="pub-close" id="pubClose">&times;</span>
+
+<h2>📢 Annonces Publicitaires</h2>
+
+<!-- ANNONCE 1 -->
+<div class="pub-card">
+
+<h3>Studio de Production Musicale</h3>
+
+<p>
+Création musicale assistée par IA.
+🎤🎶 OFFRE SPÉCIALE – LABEL LFG MUSIC PRODUCTION 🎶🎤
+💖 Une chanson unique vaut parfois plus que mille mots !
+Offrez une émotion inoubliable grâce à une création musicale personnalisée assistée par l'IA, avec des paroles adaptées à votre histoire.
+🎵 Nous réalisons des chansons pour :
+🎂 Anniversaire
+💝 Dédicace à votre chéri(e)
+💍 Mariage et fiançailles
+📺 Publicités et entreprises
+🎉 Événements spéciaux
+🙏 Gospel et louange
+👨‍👩‍👧 Famille et amis
+✨ Et bien d'autres occasions…
+🚀 Pourquoi nous choisir ?
+✅ Paroles personnalisées
+✅ Mélodie moderne et professionnelle
+✅ Qualité studio
+✅ Livraison rapide en moins de 48 heures
+✅ Accompagnement personnalisé
+💌 Alors, qu'attendez-vous pour surprendre votre chéri(e), un proche ou vos clients avec une chanson originale ?
+📲 Contact WhatsApp :
+📞 +237 670 035 609
+📞 +237 614 752 55
+📞 +237 656 050 097
+📍 Yaoundé – Nyom 3
+🎼 LABEL LFG MUSIC PRODUCTION
+Votre histoire mérite sa propre musique.
+</p>
+
+<p>
+WhatsApp 1 : +237670035609
+</p>
+
+<a
+class="pub-btn"
+href="https://wa.me/237670035609"
+target="_blank">
+💬 Contacter
+</a>
+
+</div>
+
+<!-- ANNONCE 2 -->
+<div class="pub-card">
+
+<h3>Lesfacilitateurs Middleman</h3>
+
+<p>
+🦺 ÉQUIPE DE TECHNICIEN PROFESSIONNEL ( MAÇONNERIE GÉNÉRAL 
+, COFFRAGE, FERRAILLAGE COULAGE , CRÉPISSAGE......ETC🦺🥾👢⚙️🛠️🪛🪚🔧🔩📐🖍️  DISPONIBLE MAINTENANT À YAOUNDÉ NYOM3 POSSIBILITÉ DE SE DÉPLACER TRAVAIL UNIQUEMENT À LA TÂCHE 
+ 
+What's :670035609
+     Appel:656050097
+              
+
+<p>
+WhatsApp 1 : +237656050097
+</p>
+
+
+<a
+class="pub-btn"
+href="https://wa.me/237656050097"
+target="_blank">
+💬 Contacter
+</a>
+
+</div>
+
+<!-- AJOUTER D'AUTRES ANNONCES ICI -->
+
+</div>
+
+</div>
 <script>
 
 /* CLOCK */
@@ -540,24 +756,7 @@ const images1 = [
 "https://raw.githubusercontent.com/Lfg237/images-Lesfacilitateurs-/main/file_000000009a3872469d746a3579869682.png"
 ];
 
-const slideshow1 = document.getElementById("slideshow");
-const track1 = document.createElement("div");
-track1.className = "slides";
-slideshow1.appendChild(track1);
-
-images1.forEach(src=>{
-   const img=document.createElement("img");
-   img.src=src;
-   track1.appendChild(img);
-});
-
-let slide1 = 0;
-
-setInterval(()=>{
-   slide1++;
-   if(slide1 >= images1.length) slide1 = 0;
-   track1.style.transform=`translateX(-${slide1*100}%)`;
-},3000);
+/* ===== SLIDESHOW UNIVERSEL ===== */
 
 
 /* ===== SLIDESHOW 2 ===== */
@@ -580,9 +779,26 @@ track2.className = "slides";
 slideshow2.appendChild(track2);
 
 images2.forEach(src=>{
-   const img=document.createElement("img");
-   img.src=src;
-   track2.appendChild(img);
+
+   if(src.endsWith(".mp4")){
+
+      const video=document.createElement("video");
+      video.src=src;
+      video.autoplay=true;
+      video.muted=true;
+      video.loop=true;
+      video.playsInline=true;
+
+      track2.appendChild(video);
+
+   }else{
+
+      const img=document.createElement("img");
+      img.src=src;
+      track2.appendChild(img);
+
+   }
+
 });
 
 let slide2 = 0;
@@ -653,6 +869,26 @@ nextBtn.addEventListener("click", () => {
         behavior: "smooth"
     });
 });
+
+/* ===== POPUP PUBLICITES ===== */
+
+const pubOpen=document.getElementById("pubOpen");
+const pubPopup=document.getElementById("pubPopup");
+const pubClose=document.getElementById("pubClose");
+
+pubOpen.onclick=()=>{
+pubPopup.style.display="block";
+}
+
+pubClose.onclick=()=>{
+pubPopup.style.display="none";
+}
+
+window.onclick=(e)=>{
+if(e.target===pubPopup){
+pubPopup.style.display="none";
+}
+}
 </script>
 
 </body>
